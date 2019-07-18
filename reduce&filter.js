@@ -1,4 +1,4 @@
-console.log('Here is : ', 'Reduce & Filter') \
+console.log('Here is : ', 'Reduce & Filter')
 
 //Using Reduce 1 -5
 var persons = [
@@ -21,6 +21,9 @@ and return average age of this array
 Ex: avgAge(persons) => 41.2
 */
 
+function avgAge(arr) {
+  return arr.reduce((acc, element) => acc + element.age, 0);
+}
 
 /*
 2
