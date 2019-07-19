@@ -330,19 +330,45 @@ and return only the rows in the matrix that have all positive integers
 var numbers= [[ 1, 10, -100 ], [ 2, -20, 200 ],[ 3, 30,  300 ]];
 Ex: positiveRowsOnly(numbers) => [ 3, 30,  300 ]
 */
+var numbers= [[ 1, 10, -100 ], [ 2, -20, 200 ],[ 3, 30,  300 ]];
+
 
 function positiveRowsOnly(arrayOfArray) {
-  var i = 0;
-
   return arrayOfArray.filter(arr => {
-    arr.filter(element => {
-      if(element < 0)
-        return ''
-      else 
+    var isElementNegative = false;
+
+    arr.forEach(element => {
+      if(element < 0) {
+        isElementNegative = true;
+      }
+    });
+
+    if(!isElementNegative)
       return arr;
-    })
   });
 }
+
+
+function positiveRowsOnly2(arrayOfArray) {
+  var positiveArrays = arr => {
+    var isElementNegative = false;
+    
+    for(var i = 0; i < arr.length; i++) {
+      if(arr[i] < 0 ) {
+        isElementNegative = true;
+        break;
+      }
+    }
+
+    if(!isElementNegative)
+      return arr;
+  };
+
+  return arrayOfArray.filter(positiveArrays)
+}
+
+
+
 
 /*
 15
@@ -353,6 +379,20 @@ return only those words where all the vowels are the same
 var strings= [ 'racecar', 'amalgam', 'oligopoly', 'zoom' ];
 Ex: allSameVowels(strings) =>  [ 'amalgam', 'zoom' ]
 */
+
+var strings= [ 'racecar', 'amalgam', 'oligopoly', 'zoom' ];
+
+
+function allSamevowels(arr) {
+  return arr.filter(str => {
+    return str;
+  });
+}
+
+
+
+
+
 
 //Using Reduce 16 -
 
