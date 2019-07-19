@@ -380,13 +380,58 @@ var strings= [ 'racecar', 'amalgam', 'oligopoly', 'zoom' ];
 Ex: allSameVowels(strings) =>  [ 'amalgam', 'zoom' ]
 */
 
-var strings= [ 'racecar', 'amalgam', 'oligopoly', 'zoom' ];
+var strings= [ 'amalgam', 'racecar', 'oligopoly', 'zoom'];
 
 
 function allSamevowels(arr) {
-  return arr.filter(str => {
-    return str;
+
+  function findVowls(strArray) {
+    var vowels = 'auioe';
+    var charsArray = strArray.split('');
+    var vowelChars = [];
+
+    for(var i = 0; i < charsArray.length; i++) {
+      var charIsAVowel = vowels.indexOf(charsArray[i]) !== - 1;
+
+      if(charIsAVowel) {
+        vowelChars.push(charsArray[i]);
+      }
+    }
+
+    return vowelChars;
+  }
+
+
+  function hasSimilarVowelsOnly(arr) {
+    var vowelsObj = {};
+    var vowelsObjNotEmpty;
+    var notExistedVowel;
+
+    for(var i = 0; i < arr.length; i++) {
+      vowelsObjNotEmpty = Object.keys(vowelsObj).length;
+      notExistedVowel = vowelsObj[arr[i]] === undefined;
+
+      if(notExistedVowel && vowelsObjNotEmpty)
+          return false;
+
+      if(vowelsObj[arr[i]])
+        vowelsObj[arr[i]] += 1;
+      else
+        vowelsObj[arr[i]] = 1;
+    }
+
+    return true;
+  }
+
+  var arrayOfStringsWithSimilarVowels =  arr.filter(str => {
+    var vowelChars  = findVowls(str);
+    var strHasSimilarVowelsOnly = hasSimilarVowelsOnly(vowelChars);
+
+    if(strHasSimilarVowelsOnly)
+      return str;
   });
+
+  return arrayOfStringsWithSimilarVowels;
 }
 
 
@@ -407,6 +452,15 @@ Ex: objectify(array) =>  { 'Thundercats': '80s', 'The Powerpuff Girls': '90s', '
 */
 
 
+function objectify(arr) {
+  return arr.reduce((obj, element) => {
+    obj[element[0]+''] = element[1];
+    return obj;
+  }, {})
+}
+
+
+
 /*
 17
 Using Reduce
@@ -416,5 +470,24 @@ and turns an array of arrays into an object
 var array= [ 30, 48, 11, 5, 32 ]
 Ex: luckyNumbers(array) => 'Your lucky numbers are: 30, 48, 11, 5, and 32';
 */
+
+var array= [ 30, 48, 11, 5, 32 ]
+
+
+function luckyNumbers(numbers) {
+  return numbers.reduce((str, number, index, arr) => {
+    if(index === arr.length - 1) {
+      str += 'and ' + number;
+    } else {
+      str += number + ', ';
+    }
+    return str;
+  }, 'Your lucky numbers are: ')
+}
+
+
+
+
+
 
 // if you finish the exercises review the material of the week and help your classmate
