@@ -75,17 +75,9 @@ function longestName(arr) {
 }
 */
 
-var persons = [
-  { name: { first: 'John', last: 'Hob' }, age: 35 },
-  { name: { first: 'Alex', last: 'Mercer' }, age: 25 },
-  { name: { first: 'Soso', last: 'Al-Amora' }, age: 67 },
-  { name: { first: 'Alice', last: 'Zaheer' }, age: 24 },
-  { name: { first: 'Zues', last: 'Odin' }, age: 55 },
-];
 
-
-/*
-function longestName(arr) {
+// first version of longestName2, but not efficient
+function longestName2(arr) {
   var fullName =  arr[0].name.first + ' ' + arr[0].name.last;
   var initialValue = { name: fullName, length: fullName.length }
 
@@ -101,10 +93,10 @@ function longestName(arr) {
 
   return longestName;
 }
-*/
 
 
 
+// last version of longestName and the offical one.
 function longestName(arr) {
   return arr.reduce((maxName, element) => {
     var tempName = element.name.first + ' ' + element.name.last;
@@ -167,7 +159,7 @@ Ex: usAndNumberBeetweenUs(2,5) => [2,3,4,5]
 */
 
 function usAndNumberBeetweenUs(numberA, numberB) {
-  // This question is deleted
+  // This question is deleted, but solved using while loop.
   arr = [];
   while(numberA <= numberB) {
     arr.push(numberA)
@@ -175,7 +167,6 @@ function usAndNumberBeetweenUs(numberA, numberB) {
   }
 
   return arr;
-  
 }
 
 
@@ -253,7 +244,7 @@ Ex: olderThan(persons,56) => [{ name: { first: 'Soso', last: 'Al-Amora' }, age: 
 */
 
 function olderThan(arr, number) {
-  return persons.filter(obj => obj.age > number);
+  return arr.filter(obj => obj.age > number);
 }
 
 /*
@@ -348,7 +339,7 @@ function positiveRowsOnly(arrayOfArray) {
   });
 }
 
-
+// more efficient version, as it will stop when it find negative values in the sub array not keep looping without a purpose like the first version.
 function positiveRowsOnly2(arrayOfArray) {
   var positiveArrays = arr => {
     var isElementNegative = false;
@@ -369,7 +360,6 @@ function positiveRowsOnly2(arrayOfArray) {
 
 
 
-
 /*
 15
 Using Filter
@@ -382,7 +372,7 @@ Ex: allSameVowels(strings) =>  [ 'amalgam', 'zoom' ]
 
 var strings= [ 'amalgam', 'racecar', 'oligopoly', 'zoom'];
 
-
+// first version of allSamevowels method but too much code and not optimized.
 function allSamevowels(arr) {
 
   function findVowls(strArray) {
@@ -435,6 +425,31 @@ function allSamevowels(arr) {
 }
 
 
+// optimzed version of allSamevowels function, with less code and more efficient
+function allSamevowels2(arr) {
+  return arr.filter((str) => {
+    var vowelsObj = {};
+
+    for(var i = 0; i < str.length; i++) {
+      var vowels = 'auieo';
+
+      if(vowels.indexOf(str[i]) !== -1) {
+        
+        if(vowelsObj[str[i]])
+          vowelsObj[str[i]] += 1;
+        else 
+          vowelsObj[str[i]] = 1;
+
+        if(Object.keys(vowelsObj).length > 1)
+            break;
+      }
+    }
+
+    if(Object.keys(vowelsObj).length <= 1)
+      return str;
+  });
+}
+
 
 
 
@@ -458,7 +473,6 @@ function objectify(arr) {
     return obj;
   }, {})
 }
-
 
 
 /*
